@@ -6,10 +6,9 @@ const prisma = new PrismaClient();
 app.use(express.static('public'));
 const stripe = require('stripe')('sk_test_51P1xNFG6QaMKi8sIagIrhGQupNAgvWSCRgtBUWCuS9wbjVjZDKskTPNwoUVLWaPCwh92S8uxgf1GYhCQzhOp8shP007BhoXZiW');
 app.use(express.json());
-
 const allowCors = (fn) => async (req, res) => {
     res.setHeader("Access-Control-Allow-Credentials", true);
-    res.setHeader("Access-Control-Allow-Origin", "*"); // Możesz zmienić na specyficzne domeny
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
     res.setHeader(
         "Access-Control-Allow-Headers",
