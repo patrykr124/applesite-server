@@ -7,27 +7,10 @@ app.use(express.static('public'));
 const stripe = require('stripe')('sk_test_51P1xNFG6QaMKi8sIagIrhGQupNAgvWSCRgtBUWCuS9wbjVjZDKskTPNwoUVLWaPCwh92S8uxgf1GYhCQzhOp8shP007BhoXZiW');
 app.use(express.json());
 
-const corsOptions = {
-    origin: [
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "https://applesite-server.vercel.app",
-        "https://applesite-server-mtwxwtwrs-patryks-projects-2d4eefcb.vercel.app/",
-        "https://your-frontend.vercel.app",
-        "https://checkout.stripe.com",
-    ],
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: [
-        "Content-Type",
-        "Authorization",
-        "X-CSRF-Token",
-        "X-Requested-With",
-    ],
-    credentials: false,
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+app.use(cors({
+    origin: 'https://apple-site-seven.vercel.app', // Frontend URL
+    methods: 'GET, POST, PUT, DELETE, OPTIONS',
+}));
 
 app.get('/', async (req, res) => {
     res.send('server is running!!!')
