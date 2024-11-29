@@ -49,7 +49,7 @@ app.get("/category", async (req, res) => {
 app.get("/products", async (req, res) => {
     try {
         const products = await prisma.product.findMany();
-        res.json(products);
+        res.json({products: []});
     } catch (err) {
         console.log(err);
         res.status(500).json({error: "Internal Server Error"});
