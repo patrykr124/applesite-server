@@ -10,6 +10,7 @@ app.use(express.json());
 const corsOptions = {
     origin: [
         "http://localhost:5173",
+        "http://localhost:5174", // Dodaj brakujący frontend na porcie 5174
         "https://applesite-server.vercel.app",
         "https://your-frontend.vercel.app",
     ],
@@ -20,27 +21,14 @@ const corsOptions = {
         "X-CSRF-Token",
         "X-Requested-With",
     ],
-    credentials: true,
+    credentials: true, // Jeśli musisz przesyłać ciasteczka lub inne dane uwierzytelniające
 };
 
+// Użycie CORS jako globalnego middleware
 app.use(cors(corsOptions));
 
-
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*"); // Ustaw na domeny frontendowe
-    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-    );
-    if (req.method === "OPTIONS") {
-        res.status(200).end();
-        return;
-    }
-    next();
-});
-
-app.options('/create-checkout-session', cors(corsOptions));
+// Obsługa preflight request dla CORS
+app.options('*', cors(corsOptions));
 
 app.get('/', async (req, res) => {
     res.send('server is running!!!')
