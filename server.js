@@ -40,6 +40,8 @@ app.use((req, res, next) => {
     next();
 });
 
+app.options('/create-checkout-session', cors(corsOptions));
+
 app.get('/', async (req, res) => {
     res.send('server is running!!!')
 })
