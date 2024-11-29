@@ -12,8 +12,7 @@ const corsOptions = {
         "http://localhost:5173",
         "http://localhost:5174",
         "https://applesite-server.vercel.app",
-        "https://apple-site-1jjqdd9bi-patryks-projects-2d4eefcb.vercel.app",
-        "https://applesite-server.vercel.app/products",
+        "https://applesite-server-mtwxwtwrs-patryks-projects-2d4eefcb.vercel.app/",
         "https://your-frontend.vercel.app",
         "https://checkout.stripe.com",
     ],
@@ -49,7 +48,7 @@ app.get("/category", async (req, res) => {
 app.get("/products", async (req, res) => {
     try {
         const products = await prisma.product.findMany();
-        res.json({products: []});
+        res.json(products);
     } catch (err) {
         console.log(err);
         res.status(500).json({error: "Internal Server Error"});
