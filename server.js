@@ -13,6 +13,7 @@ const corsOptions = {
         "http://localhost:5174",
         "https://applesite-server.vercel.app",
         "https://apple-site-1jjqdd9bi-patryks-projects-2d4eefcb.vercel.app",
+        "https://applesite-server.vercel.app/products",
         "https://your-frontend.vercel.app",
         "https://checkout.stripe.com",
     ],
