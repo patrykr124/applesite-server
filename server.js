@@ -19,7 +19,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get('/', async (req, res) => {
-    res.send('server is running')
+    res.send('server is running!!!')
 })
 
 //all
