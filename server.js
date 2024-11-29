@@ -9,24 +9,25 @@ app.use(express.json());
 
 const corsOptions = {
     origin: [
-        "http://localhost:5173", // Your local frontend
-        "http://localhost:5174", // Another local frontend
-        "https://applesite-server.vercel.app", // Your deployed backend
-        "https://your-frontend.vercel.app", // Your deployed frontend
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "https://applesite-server.vercel.app",
+        "https://apple-site-1jjqdd9bi-patryks-projects-2d4eefcb.vercel.app",
+        "https://your-frontend.vercel.app",
         "https://checkout.stripe.com",
     ],
-    methods: ["GET", "POST", "OPTIONS"], // Allow relevant methods
+    methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: [
         "Content-Type",
         "Authorization",
         "X-CSRF-Token",
         "X-Requested-With",
     ],
-    credentials: false, // If you need cookies/authentication
+    credentials: false,
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Handle preflight requests
+app.options('*', cors(corsOptions));
 
 app.get('/', async (req, res) => {
     res.send('server is running!!!')
