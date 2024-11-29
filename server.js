@@ -7,16 +7,26 @@ app.use(express.static('public'));
 const stripe = require('stripe')('sk_test_51P1xNFG6QaMKi8sIagIrhGQupNAgvWSCRgtBUWCuS9wbjVjZDKskTPNwoUVLWaPCwh92S8uxgf1GYhCQzhOp8shP007BhoXZiW');
 app.use(express.json());
 
-const corsOptions = {
-    origin: [
-        "http://localhost:5173",
-        "https://applesite-server.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: false,
+const allowCors = (fn) => async (req, res) => {
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    res.setHeader("Access-Control-Allow-Origin", "*"); // Możesz zmienić na specyficzne domeny
+    res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS,PATCH,DELETE,POST,PUT");
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
+    if (req.method === "OPTIONS") {
+        res.status(200).end();
+        return;
+    }
+    return await fn(req, res);
 };
 
-app.use(cors(corsOptions));
+const handler = async (req, res) => {
+    res.status(200).json({ message: "Hello, CORS is enabled!" });
+};
+
+module.exports = allowCors(handler);
 
 app.get('/', async (req, res) => {
     res.send('server is running')
