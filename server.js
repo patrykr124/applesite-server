@@ -7,7 +7,16 @@ app.use(express.static('public'));
 const stripe = require('stripe')('sk_test_51P1xNFG6QaMKi8sIagIrhGQupNAgvWSCRgtBUWCuS9wbjVjZDKskTPNwoUVLWaPCwh92S8uxgf1GYhCQzhOp8shP007BhoXZiW');
 app.use(express.json());
 
-app.use(cors());
+const corsOptions = {
+    origin: [
+        "http://localhost:5173",
+        "https://apple-site-5juj1s6hq-patryks-projects-2d4eefcb.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: false,
+};
+
+app.use(cors(corsOptions));
 
 app.get('/', async (req, res) => {
     res.send('server is running')
