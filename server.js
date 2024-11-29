@@ -9,15 +9,41 @@ app.use(express.json());
 
 const corsOptions = {
     origin: [
-        "http://localhost:5173", // Dla lokalnego środowiska
-        "http://localhost:5174", // Jeśli używasz innych portów
-        "https://your-frontend.vercel.app", // Frontend w produkcji
+        "http://localhost:5173",
+        "https://applesite-server.vercel.app",
+        "https://your-frontend.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true, // Pozwala na ciasteczka, jeśli są potrzebne
+    allowedHeaders: [
+        "X-CSRF-Token",
+        "X-Requested-With",
+        "Accept",
+        "Accept-Version",
+        "Content-Length",
+        "Content-MD5",
+        "Content-Type",
+        "Date",
+        "X-Api-Version",
+    ],
+    credentials: true,
 };
+
 app.use(cors(corsOptions));
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*"); // Ustaw na domeny frontendowe
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    if (req.method === "OPTIONS") {
+        res.status(200).end();
+        return;
+    }
+    next();
+});
 
 app.get('/', async (req, res) => {
     res.send('server is running!!!')
