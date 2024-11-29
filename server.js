@@ -10,7 +10,7 @@ app.use(express.json());
 const corsOptions = {
     origin: [
         "http://localhost:5173",
-        "https://applesite-server.vercel.app/",
+        "https://applesite-server.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: false,
