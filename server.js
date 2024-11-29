@@ -9,6 +9,10 @@ app.use(express.json());
 
 app.use(cors());
 
+app.get('/', async (req, res) => {
+    res.send('server is running')
+})
+
 //all
 
 app.get("/category", async (req, res) => {
