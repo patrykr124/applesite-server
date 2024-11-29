@@ -15,20 +15,16 @@ const corsOptions = {
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: [
+        "Content-Type",
+        "Authorization",
         "X-CSRF-Token",
         "X-Requested-With",
-        "Accept",
-        "Accept-Version",
-        "Content-Length",
-        "Content-MD5",
-        "Content-Type",
-        "Date",
-        "X-Api-Version",
     ],
     credentials: true,
 };
 
 app.use(cors(corsOptions));
+
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*"); // Ustaw na domeny frontendowe
@@ -37,7 +33,6 @@ app.use((req, res, next) => {
         "Access-Control-Allow-Headers",
         "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
     );
-    res.setHeader("Access-Control-Allow-Credentials", "true");
     if (req.method === "OPTIONS") {
         res.status(200).end();
         return;
