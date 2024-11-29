@@ -9,26 +9,24 @@ app.use(express.json());
 
 const corsOptions = {
     origin: [
-        "http://localhost:5173",
-        "http://localhost:5174", // Dodaj brakujący frontend na porcie 5174
-        "https://applesite-server.vercel.app",
-        "https://your-frontend.vercel.app",
+        "http://localhost:5173", // Your local frontend
+        "http://localhost:5174", // Another local frontend
+        "https://applesite-server.vercel.app", // Your deployed backend
+        "https://your-frontend.vercel.app", // Your deployed frontend
+        "https://checkout.stripe.com",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "OPTIONS"], // Allow relevant methods
     allowedHeaders: [
         "Content-Type",
         "Authorization",
         "X-CSRF-Token",
         "X-Requested-With",
     ],
-    credentials: true, // Jeśli musisz przesyłać ciasteczka lub inne dane uwierzytelniające
+    credentials: false, // If you need cookies/authentication
 };
 
-// Użycie CORS jako globalnego middleware
 app.use(cors(corsOptions));
-
-// Obsługa preflight request dla CORS
-app.options('*', cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle preflight requests
 
 app.get('/', async (req, res) => {
     res.send('server is running!!!')
@@ -110,7 +108,7 @@ app.get("/products/:id", async (req, res) => {
 
 
 app.post('/create-checkout-session', async (req, res) => {
-    const YOUR_DOMAIN = 'https://applesite-server.vercel.app/' || 'http://localhost:5173';
+    const YOUR_DOMAIN = 'https://apple-site-seven.vercel.app/' || 'http://localhost:5173';
 
     try {
         const {items} = req.body;
@@ -133,7 +131,7 @@ app.post('/create-checkout-session', async (req, res) => {
                 payment_method_types: ['card'],
                 line_items,
                 mode: 'payment',
-                success_url: `${YOUR_DOMAIN}/?success=true`,
+                success_url: `${YOUR_DOMAIN}/thankyou`,
                 cancel_url: `${YOUR_DOMAIN}`,
             }
         )
