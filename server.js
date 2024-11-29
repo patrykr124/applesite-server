@@ -125,7 +125,7 @@ app.get("/products/:id", async (req, res) => {
 
 
 app.post('/create-checkout-session', async (req, res) => {
-    const YOUR_DOMAIN = 'http://localhost:5173/';
+    const YOUR_DOMAIN = 'https://applesite-server.vercel.app/' || 'http://localhost:5173';
 
     try {
         const {items} = req.body;
